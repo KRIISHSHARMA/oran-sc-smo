@@ -1,12 +1,10 @@
-# O-RAN-SC SMO INSTALLATION GUIDE
-
-## Pre-requisites:
+# Pre-requisites:
 ```
 ./dep/smo-install/scripts/layer-0/0-setup-microk8s.sh
 ```
 - **This script installs MicroK8s v1.27, disables swap, opens up firewall, enables DNS + storage + Prometheus, and sets up kubectl to work with the MicroK8s cluster**
 
-## Installation
+# Installation
 
 ### Clone the repository using the command below (make sure to use recursive flag)
 
@@ -36,3 +34,16 @@ git clone --recursive "https://gerrit.o-ran-sc.org/r/it/dep"
   1. ```../sub-scripts/build-onap.sh``` : Builds the ONAP components using make, after installing necessary Helm plugins
   2. ```../sub-scripts/build-oran.sh``` : Builds the O-RAN SMO components using Makefiles
   3. ```../sub-scripts/build-tests.sh``` : Builds the test suite for the O-RAN SMO
+
+-----------------------------------------------------
+### ERROR : 
+```
+Pushing actn-simulator-1.0.0.tgz to local...
+2025-04-29T20:27:04.438Z	ERROR	[9] Request served	{"path": "/api/charts", "comment": "", "clientIP": "127.0.0.1", "method": "POST", "statusCode": 500, "latency": "2.07079ms", "reqID": "8d3db3f7-b6fb-4f14-b69f-cc71f0ad0ca7"}
+Error: 500: open /home/ubuntu/dep/chartstorage/actn-simulator-1.0.0.tgz: permission denied
+```
+### Solution : Change Ownership for chartmuseum
+```
+sudo chown -R $USER:$USER /home/ubuntu/dep/chartstorage
+```
+-----------------------------------------------------
