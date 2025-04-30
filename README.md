@@ -42,7 +42,7 @@ Pushing actn-simulator-1.0.0.tgz to local...
 2025-04-29T20:27:04.438Z	ERROR	[9] Request served	{"path": "/api/charts", "comment": "", "clientIP": "127.0.0.1", "method": "POST", "statusCode": 500, "latency": "2.07079ms", "reqID": "8d3db3f7-b6fb-4f14-b69f-cc71f0ad0ca7"}
 Error: 500: open /home/ubuntu/dep/chartstorage/actn-simulator-1.0.0.tgz: permission denied
 ```
-### Solution : Change Ownership for chartmuseum
+### Solution : Change Ownership for chartstorage
 ```
 sudo chown -R $USER:$USER /home/ubuntu/dep/chartstorage
 ```
