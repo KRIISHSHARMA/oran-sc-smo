@@ -113,6 +113,34 @@ spec:
 ```
 
 ### Solution : 
+- Ensure the storageClassName field is added to the PersistentVolume specification
+- Update Kongpv.yaml to include storageClassName
 
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kongpv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: "{{ .Values.kongpv.persistence.size }}"
+  accessModes:
+    - "{{ .Values.kongpv.persistence.accessMode }}"
+  storageClassName: microk8s-hostpath
+  hostPath:
+    path: "{{ .Values.kongpv.persistence.path }}"
+  persistentVolumeReclaimPolicy: "{{ .Values.kongpv.persistence.volumeReclaimPolicy }}"
+```
+
+- Or if it's already created , Edit in-place using : `kubectl edit pv kongpv` then add `storageClassName: microk8s-hostpath`
 -----------------------------------------------------
+
+## Dashboard Aceess 
+* **SDNR WEB:**
+	`https://<K8SServerIP>:30205/odlux/index.html`
+* **NONRTRIC Dashboard:**
+	`http://<K8SServerIP>:30091/`
+
 
