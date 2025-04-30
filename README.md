@@ -92,7 +92,25 @@ Events:
   Warning  VolumeMismatch  5s    persistentvolume-controller  Cannot bind to requested volume "kongpv": storageClassName does not match
 
 ```
-- This occurs when the PersistentVolume (PV) named kongpv is created without specifying the correct storageClassName, or with a value that doesn't match the PVC's requested storageClassName.
+- This occurs when the PV kongpv is created without specifying the correct storageClassName, or with a value that doesn't match the PVC's requested storageClassName.
+
+- Default Kongpv.yaml file
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kongpv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: "{{ .Values.kongpv.persistence.size }}"
+  accessModes:
+    - "{{ .Values.kongpv.persistence.accessMode }}"
+  hostPath:
+    path: "{{ .Values.kongpv.persistence.path }}"
+  persistentVolumeReclaimPolicy: "{{ .Values.kongpv.persistence.volumeReclaimPolicy }}"
+```
 
 ### Solution : 
 
