@@ -47,3 +47,24 @@ Error: 500: open /home/ubuntu/dep/chartstorage/actn-simulator-1.0.0.tgz: permiss
 sudo chown -R $USER:$USER /home/ubuntu/dep/chartstorage
 ```
 -----------------------------------------------------
+
+### SMO Deployment
+```
+./dep/smo-install/scripts/layer-2/2-install-oran.sh
+```
+- **This script:
+    Sets up environment and paths.
+    Deploys Helm charts for ONAP, Non-RT RIC, and SMO using specific override YAMLs.
+    Verifies the deployment by printing pod and namespace statuses.**
+
+- Each of sub-scripts installs a part of the SMO stack:
+  - **../sub-scripts/install-onap.sh**: Deploys ONAP (Open Network Automation Platform)
+  - **../sub-scripts/install-nonrtric.sh**: Deploys ORAN's Non-Real-Time RIC
+  - **../sub-scripts/install-smo.sh**: Deploys SMO-specific components
+ 
+- Watch Pod Status During Deployment
+  - ```sudo watch kubectl get pods -n onap```
+  - ```sudo watch kubectl get pods -n nonrtric```
+  - ```sudo watch kubectl get pods -n smo```
+  
+
