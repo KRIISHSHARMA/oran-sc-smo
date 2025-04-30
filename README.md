@@ -66,5 +66,35 @@ sudo chown -R $USER:$USER /home/ubuntu/dep/chartstorage
   - ```sudo watch kubectl get pods -n onap```
   - ```sudo watch kubectl get pods -n nonrtric```
   - ```sudo watch kubectl get pods -n smo```
-  
+
+-----------------------------------------------------
+### ERROR : PersistentVolume Binding Issue: VolumeMismatch due to storageClassName
+- While deploying the nonrtric Helm chart, the `data-oran-nonrtric-postgresql-0` PersistentVolumeClaim (PVC) may remain in a Pending state with the following warning:
+
+```
+ sudo kubectl describe pvc data-oran-nonrtric-postgresql-0 -n nonrtric
+Name:          data-oran-nonrtric-postgresql-0
+Namespace:     nonrtric
+StorageClass:  microk8s-hostpath
+Status:        Pending
+Volume:        kongpv
+Labels:        app.kubernetes.io/managed-by=Helm
+Annotations:   meta.helm.sh/release-name: oran-nonrtric
+               meta.helm.sh/release-namespace: nonrtric
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      0
+Access Modes:  
+VolumeMode:    Filesystem
+Used By:       <none>
+Events:
+  Type     Reason          Age   From                         Message
+  ----     ------          ----  ----                         -------
+  Warning  VolumeMismatch  5s    persistentvolume-controller  Cannot bind to requested volume "kongpv": storageClassName does not match
+
+```
+- This occurs when the PersistentVolume (PV) named kongpv is created without specifying the correct storageClassName, or with a value that doesn't match the PVC's requested storageClassName.
+
+### Solution : 
+
+-----------------------------------------------------
 
